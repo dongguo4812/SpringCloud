@@ -21,7 +21,7 @@
                         password="${jdbc.password}">
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="${package.name}.entities" targetProject="src/main/java"/>
+        <javaModelGenerator targetPackage="${package.name}.entity" targetProject="src/main/java"/>
 
         <sqlMapGenerator targetPackage="${package.name}.mapper" targetProject="src/main/java"/>
 
