@@ -16,6 +16,10 @@ public class SwaggerOpenApiConfig {
     public GroupedOpenApi PayApi() {
         return GroupedOpenApi.builder().group("支付微服务模块").pathsToMatch("/pay/**").build();
     }
+    @Bean
+    public GroupedOpenApi OrderApi() {
+        return GroupedOpenApi.builder().group("订单微服务模块").pathsToMatch("/consumer/**").build();
+    }
 
 //    @Bean
 //    public GroupedOpenApi OtherApi() {
