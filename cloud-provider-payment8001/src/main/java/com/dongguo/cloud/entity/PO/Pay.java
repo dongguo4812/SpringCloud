@@ -1,8 +1,11 @@
-package com.dongguo.cloud.entities;
+package com.dongguo.cloud.entity.PO;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.*;
 
 /**
  * 表名：t_pay
