@@ -19,3 +19,10 @@ mybatis:
   type-aliases-package: com.dongguo.cloud.entity
   configuration:
     map-underscore-to-camel-case: true
+
+
+# ========================swagger=====================
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html

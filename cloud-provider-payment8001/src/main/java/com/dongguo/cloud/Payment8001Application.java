@@ -10,6 +10,7 @@ public class Payment8001Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Payment8001Application.class, args);
+		System.out.println("http://127.0.0.1:8001/swagger-ui.html");
 	}
 
 }
