@@ -20,7 +20,10 @@ public class SwaggerOpenApiConfig {
     public GroupedOpenApi OrderApi() {
         return GroupedOpenApi.builder().group("订单微服务模块").pathsToMatch("/consumer/**").build();
     }
-
+    @Bean
+    public GroupedOpenApi FeignOrderApi() {
+        return GroupedOpenApi.builder().group("Feign调用接口").pathsToMatch("/feign/**").build();
+    }
 //    @Bean
 //    public GroupedOpenApi OtherApi() {
 //        return GroupedOpenApi.builder().group("其它微服务模块").pathsToMatch("/other/**", "/others").build();
