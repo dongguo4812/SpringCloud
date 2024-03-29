@@ -7,8 +7,10 @@ import com.dongguo.cloud.entity.PO.Pay;
 import com.dongguo.cloud.resp.Result;
 import com.dongguo.cloud.service.PayService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -71,5 +73,12 @@ public class PayController {
     public Result getAll() {
         List<Pay> payList = payService.getAll();
         return Result.success(payList);
+    }
+
+    @Value("${server.port}")
+    private String port;
+    @GetMapping(value = "/get/info")
+    private String getInfoByConsul(@Value("${active.info}") String info) {
+        return "info: " + info + "," + "port: " + port;
     }
 }

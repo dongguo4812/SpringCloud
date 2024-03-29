@@ -5,7 +5,10 @@ server:
 spring:
   application:
     name: cloud-payment-service
-
+  config:
+    import: 'optional:consul:'  #关键点 导入外部配置源，读取Consul中的配置
+  profiles:
+    active: dev #多环境配置 如dev/test/prod，默认为default
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,7 +22,13 @@ spring:
       port: 8500
       discovery:
         service-name: ${spring.application.name}
-# ========================日期格式化=====================
+      config:
+        enabled: true
+        profile-separator: '-'    #文件分隔符，默认使用','  根据我们定义文件名的习惯(如application-dev.yml)修改为'-'
+        format: YAML
+        watch:
+          enabled: false
+  # ========================日期格式化=====================
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT-8
