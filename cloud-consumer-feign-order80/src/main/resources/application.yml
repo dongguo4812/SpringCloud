@@ -12,6 +12,16 @@ spring:
       discovery:
         prefer-ip-address: true #优先使用服务ip进行注册
         service-name: ${spring.application.name}
+    #============Spring Cloud OpenFeign超时控制 ================
+    openfeign:
+      client:
+        config:
+          default:               #default所有feign接口有效
+#          cloud-payment-service:               #feignName 指定feign接口有效
+#            connectTimeout: 5000  #5000毫秒
+#            readTimeout: 5000
+            connectTimeout: 60000 #默认值 60000毫秒
+            readTimeout: 60000
   # ========================日期格式化=====================
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

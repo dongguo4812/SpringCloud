@@ -1,5 +1,7 @@
 package com.dongguo.cloud.controller;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import com.dongguo.cloud.entity.DTO.PayDTO;
 import com.dongguo.cloud.feign.PayFeignApi;
 import com.dongguo.cloud.resp.Result;
@@ -7,6 +9,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
+
+import static com.dongguo.cloud.resp.ReturnCodeEnum.RC500;
 
 @RestController
 @Tag(name = "订单模块", description = "订单控制器接口")
@@ -25,7 +29,19 @@ public class OrderController {
     @Operation(summary = "按照ID查流水", description = "查询支付流水")
     public Result getPayInfo(@PathVariable("id") Integer id) {
         System.out.println("-------支付微服务远程调用，按照id查询订单支付流水信息");
-        return payFeignApi.getById(id);
+        Result result = null;
+        DateTime start = DateUtil.date();
+        try {
+            System.out.println("调用开始-----:" + start);
+            result = payFeignApi.getById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            DateTime end = DateUtil.date();
+            System.out.println("调用结束-----:" + end);
+            System.out.println("发生超时 毫秒值：+" + DateUtil.betweenMs(start, end));
+            Result.fail(RC500.getCode(), e.getMessage());
+        }
+        return result;
     }
 
     @DeleteMapping("/feign/pay/del/{id}")

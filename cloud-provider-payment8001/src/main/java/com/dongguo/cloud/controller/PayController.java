@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/pay")
@@ -61,6 +63,12 @@ public class PayController {
     )
     public Result getById(@PathVariable("id") Integer id) {
         Pay pay = payService.getById(id);
+        //模拟超时场景
+        try {
+            TimeUnit.SECONDS.sleep(100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return Result.success(pay);
     }
 
