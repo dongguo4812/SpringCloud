@@ -4,19 +4,24 @@ import com.dongguo.cloud.entity.DTO.PayDTO;
 import com.dongguo.cloud.resp.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
 
 
 @RestController
 @RequestMapping("/consumer/pay")
 @Tag(name = "订单模块", description = "订单控制器接口")
 public class OrderController {
-//    public static final String PAYMENT_SERVICE_URL = "http://localhost:8001";//先写死，硬编码
+    //    public static final String PAYMENT_SERVICE_URL = "http://localhost:8001";//先写死，硬编码
     public static final String PAYMENT_SERVICE_URL = "http://cloud-payment-service";//服务注册中心上的微服务名称
-//    @Autowired
+    //    @Autowired
 //    private WebClient webClient;
     @Autowired
     private WebClient.Builder webClientBuilder;
@@ -55,5 +60,30 @@ public class OrderController {
     public Result updatePay(@RequestBody PayDTO payDTO) {
         String url = PAYMENT_SERVICE_URL + "/pay/update";
         return webClientBuilder.build().put().uri(url).contentType(MediaType.APPLICATION_JSON).bodyValue(payDTO).retrieve().bodyToMono(Result.class).block();
+    }
+
+    @GetMapping(value = "/get/info")
+    private Result getInfoByConsul() {
+        String url = PAYMENT_SERVICE_URL + "/pay/get/info";
+        return webClientBuilder.build().get().uri(url).retrieve().bodyToMono(Result.class).block();
+    }
+
+    @Resource
+    private DiscoveryClient discoveryClient;
+
+    @GetMapping("/discovery")
+    public String discovery() {
+        List<String> services = discoveryClient.getServices();
+        for (String element : services) {
+            System.out.println(element);
+        }
+
+        System.out.println("===================================");
+
+        List<ServiceInstance> instances = discoveryClient.getInstances("cloud-payment-service");
+        for (ServiceInstance element : instances) {
+            System.out.println(element.getServiceId() + "\t" + element.getHost() + "\t" + element.getPort() + "\t" + element.getUri());
+        }
+        return instances.get(0).getServiceId() + ":" + instances.get(0).getPort();
     }
 }

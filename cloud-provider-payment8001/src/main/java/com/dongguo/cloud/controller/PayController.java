@@ -7,7 +7,6 @@ import com.dongguo.cloud.entity.PO.Pay;
 import com.dongguo.cloud.resp.Result;
 import com.dongguo.cloud.service.PayService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
@@ -77,8 +76,10 @@ public class PayController {
 
     @Value("${server.port}")
     private String port;
+    @Value("${active.info}")
+    private String info;
     @GetMapping(value = "/get/info")
-    private String getInfoByConsul(@Value("${active.info}") String info) {
-        return "info: " + info + "," + "port: " + port;
+    private Result getInfoByConsul() {
+        return Result.success("info: " + info + "," + "port: " + port);
     }
 }
