@@ -1,7 +1,6 @@
 package com.dongguo.cloud.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-
 import com.dongguo.cloud.entity.DTO.PayDTO;
 import com.dongguo.cloud.entity.PO.Pay;
 import com.dongguo.cloud.resp.Result;
@@ -11,9 +10,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -65,6 +63,7 @@ public class PayController {
         Pay pay = payService.getById(id);
         //模拟超时场景
         try {
+            System.out.println("调用时间-----:" + LocalDateTime.now());
             TimeUnit.SECONDS.sleep(100);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

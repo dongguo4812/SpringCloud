@@ -18,10 +18,23 @@ spring:
         config:
           default:               #default所有feign接口有效
 #          cloud-payment-service:               #feignName 指定feign接口有效
-#            connectTimeout: 5000  #5000毫秒
-#            readTimeout: 5000
-            connectTimeout: 60000 #默认值 60000毫秒
-            readTimeout: 60000
+            connectTimeout: 5000  #5000毫秒
+            readTimeout: 5000
+#            retryer: com.dongguo.cloud.config.CustomRetryer   #自定义超时重试类的包名+ 类名
+#            connectTimeout: 60000 #默认值 60000毫秒
+#            readTimeout: 60000
+      # Spring Cloud OpenFeign 请求/响应压缩
+#      compression:
+#        request:
+#          enabled: true
+#          min-request-size: 2048 #最小触发压缩的大小
+#          mime-types: text/xml,application/xml,application/json #触发压缩数据类型
+#        response:
+#          enabled: true
+    #  Apache HttpClient5 配置开启
+    httpclient:
+      hc5:
+        enabled: true
   # ========================日期格式化=====================
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -31,3 +44,11 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
+# feign日志以什么级别监控哪个接口
+logging:
+  level:
+    com:
+      dongguo:
+        cloud:
+          feign:
+            PayFeignApi: debug
