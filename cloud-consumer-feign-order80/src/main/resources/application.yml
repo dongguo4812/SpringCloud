@@ -111,10 +111,9 @@ resilience4j:
   thread-pool-bulkhead:
     configs:
       default:
-        core-thread-pool-size: 1
-        max-thread-pool-size: 1
+        core-thread-pool-size: 3
+        max-thread-pool-size: 3
         queue-capacity: 1
-
     instances:
       cloud-payment-service:
         baseConfig: default

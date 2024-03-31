@@ -10,6 +10,7 @@ import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.concurrent.CompletableFuture;
 
 import static com.dongguo.cloud.resp.ReturnCodeEnum.RC201;
@@ -66,10 +67,16 @@ public class OrderCircuitController {
     @GetMapping(value = "/feign/pay/bulkheadPool/{id}")
     @Bulkhead(name = "cloud-payment-service", fallbackMethod = "myBulkheadPoolFallback", type = Bulkhead.Type.THREADPOOL)
     public CompletableFuture<Result> myBulkheadPool(@PathVariable("id") Integer id) {
-        return  CompletableFuture.supplyAsync(() -> payFeignApi.myBulkheadPool(id));
+
+        return CompletableFuture.supplyAsync(() -> {
+                    System.out.println(Thread.currentThread().getId() + "执行 id  ：" + id);
+                    return payFeignApi.myBulkheadPool(id);
+                }
+
+        );
     }
 
-    public  CompletableFuture<Result> myBulkheadPoolFallback(Integer id, Throwable t) {
-        return CompletableFuture.supplyAsync(() -> Result.fail(RC201.getCode(),"Bulkhead.Type.THREADPOOL" + RC201.getMessage()));
+    public CompletableFuture<Result> myBulkheadPoolFallback(Integer id, Throwable t) {
+        return CompletableFuture.supplyAsync(() -> Result.fail(RC201.getCode(), "Bulkhead.Type.THREADPOOL" + RC201.getMessage()));
     }
 }
