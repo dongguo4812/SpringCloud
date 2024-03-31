@@ -48,4 +48,16 @@ public interface PayFeignApi {
      */
     @GetMapping(value = "/pay/get/info")
     Result getInfoByConsul();
+
+    /**
+     * Resilience4j CircuitBreaker 的例子
+     */
+    @GetMapping(value = "/pay/circuit/{id}")
+    Result myCircuit(@PathVariable("id") Integer id);
+
+    @GetMapping(value = "/pay/bulkhead/{id}")
+    Result myBulkhead(@PathVariable("id") Integer id);
+
+    @GetMapping(value = "/pay/bulkheadPool/{id}")
+    Result myBulkheadPool(@PathVariable("id") Integer id);
 }
