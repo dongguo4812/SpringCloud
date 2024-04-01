@@ -48,9 +48,6 @@
         <zipkin-reporter-brave.version>2.17.0</zipkin-reporter-brave.version>
     </properties>
 
-    <!-- 欢迎报名尚硅谷学习互联网技术，有学习或发展问题zzyybs@126.com   -->
-
-
     <dependencyManagement>
         <dependencies>
             <!--springboot 3.2.4-->
