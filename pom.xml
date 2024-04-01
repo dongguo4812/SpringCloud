@@ -13,6 +13,7 @@
         <module>cloud-consumer-order80</module>
         <module>cloud-api-common</module>
         <module>cloud-consumer-feign-order80</module>
+        <module>cloud-gateway9999</module>
     </modules>
 
 
