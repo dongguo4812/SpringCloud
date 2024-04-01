@@ -4,6 +4,7 @@ import com.dongguo.cloud.feign.PayFeignApi;
 import com.dongguo.cloud.resp.Result;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -49,7 +50,7 @@ public class OrderCircuitController {
      */
     @GetMapping(value = "/feign/pay/bulkhead/{id}")
     @Bulkhead(name = "cloud-payment-service", fallbackMethod = "myBulkheadFallback", type = Bulkhead.Type.SEMAPHORE)
-    @Operation(summary = "测试舱壁隔离功能")
+    @Operation(summary = "测试舱壁信号量隔离功能")
     public Result myBulkhead(@PathVariable("id") Integer id) {
         return payFeignApi.myBulkhead(id);
     }
@@ -66,6 +67,7 @@ public class OrderCircuitController {
      */
     @GetMapping(value = "/feign/pay/bulkheadPool/{id}")
     @Bulkhead(name = "cloud-payment-service", fallbackMethod = "myBulkheadPoolFallback", type = Bulkhead.Type.THREADPOOL)
+    @Operation(summary = "测试舱壁线程池隔离功能")
     public CompletableFuture<Result> myBulkheadPool(@PathVariable("id") Integer id) {
 
         return CompletableFuture.supplyAsync(() -> {
@@ -78,5 +80,16 @@ public class OrderCircuitController {
 
     public CompletableFuture<Result> myBulkheadPoolFallback(Integer id, Throwable t) {
         return CompletableFuture.supplyAsync(() -> Result.fail(RC201.getCode(), "Bulkhead.Type.THREADPOOL" + RC201.getMessage()));
+    }
+
+    @GetMapping(value = "/feign/pay/ratelimit/{id}")
+    @RateLimiter(name = "cloud-payment-service", fallbackMethod = "myRatelimitFallback")
+    @Operation(summary = "测试限流功能")
+    public Result myRatelimit(@PathVariable("id") Integer id) {
+        return payFeignApi.myRatelimit(id);
+    }
+
+    public Result myRatelimitFallback(Integer id, Throwable t) {
+        return Result.fail(RC201.getCode(), "Ratelimit " + RC201.getMessage());
     }
 }

@@ -60,4 +60,7 @@ public interface PayFeignApi {
 
     @GetMapping(value = "/pay/bulkheadPool/{id}")
     Result myBulkheadPool(@PathVariable("id") Integer id);
+
+    @GetMapping(value = "/pay/ratelimit/{id}")
+    Result myRatelimit(@PathVariable("id") Integer id);
 }

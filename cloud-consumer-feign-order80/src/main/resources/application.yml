@@ -78,11 +78,11 @@ logging:
 #      cloud-payment-service:
 #        baseConfig: default
 # Resilience4j CircuitBreaker 按照时间：TIME_BASED 的例子
-resilience4j:
-  timelimiter:
-    configs:
-      default:
-        timeout-duration: 20s #神坑的位置，timelimiter 默认限制远程1s，超于1s就超时异常，配置了降级，就走降级逻辑
+#resilience4j:
+#  timelimiter:
+#    configs:
+#      default:
+#        timeout-duration: 20s #神坑的位置，timelimiter 默认限制远程1s，超于1s就超时异常，配置了降级，就走降级逻辑
 #  circuitbreaker:
 #    configs:
 #      default:
@@ -108,12 +108,25 @@ resilience4j:
 #    instances:
 #      cloud-payment-service:
 #        baseConfig: default
-  thread-pool-bulkhead:
+
+#  thread-pool-bulkhead:
+#    configs:
+#      default:
+#        core-thread-pool-size: 3
+#        max-thread-pool-size: 3
+#        queue-capacity: 1
+#    instances:
+#      cloud-payment-service:
+#        baseConfig: default
+
+####resilience4j ratelimiter 限流的例子
+resilience4j:
+  ratelimiter:
     configs:
       default:
-        core-thread-pool-size: 3
-        max-thread-pool-size: 3
-        queue-capacity: 1
+        limitForPeriod: 2 #在一次刷新周期内，允许执行的最大请求数
+        limitRefreshPeriod: 1s # 限流器每隔limitRefreshPeriod刷新一次，将允许处理的最大请求数量重置为limitForPeriod
+        timeout-duration: 1 # 线程等待权限的默认等待时间
     instances:
       cloud-payment-service:
         baseConfig: default

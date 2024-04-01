@@ -51,4 +51,9 @@ public class PayCircuitController {
         }
         return Result.success("Hello, bulkheadPool! inputId:  " + id + " \t " + DateUtil.date());
     }
+
+    @GetMapping(value = "/pay/ratelimit/{id}")
+    public Result myRatelimit(@PathVariable("id") Integer id) {
+        return Result.success("Ratelimit inputId:  " + id + " \t " + DateUtil.date());
+    }
 }
