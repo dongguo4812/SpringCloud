@@ -1,4 +1,4 @@
-package com.dongguo.cloud.getaway;
+package com.dongguo.cloud.gateway;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

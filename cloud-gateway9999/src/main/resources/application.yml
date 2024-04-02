@@ -18,7 +18,7 @@ spring:
           uri: lb://cloud-payment-service
           predicates:
             - Path=/pay/gateway/get/**              # 断言，路径相匹配的进行路由
-            - UserType=VIP
+#            - UserType=VIP
 #            - name: UserType
 #              args:
 #                userType: VIP
