@@ -1,4 +1,4 @@
-package com.dongguo.cloud.gateway;
+package com.dongguo.cloud.StatusGatewayFilterFactory;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
