@@ -16,6 +16,7 @@
         <module>cloud-gateway9999</module>
         <module>cloud-alibaba-provider-payment9001</module>
         <module>cloud-alibaba-consumer-order90</module>
+        <module>cloud-alibaba-config-client3377</module>
     </modules>
 
 

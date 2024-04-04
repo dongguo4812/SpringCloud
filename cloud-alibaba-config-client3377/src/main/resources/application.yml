@@ -1,0 +1,28 @@
+server:
+  port: 3377
+
+spring:
+  application:
+    name: nacos-config-client
+  profiles:
+    active: prod #激活环境
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 #Nacos服务注册中心地址
+      config:
+        server-addr: localhost:8848 #Nacos作为配置中心地址
+        file-extension: yaml #指定yaml格式的配置
+        group: PROD_GROUP
+        namespace: 47d25579-1b10-4503-8bff-1a1794b629b6
+  config:
+    import:
+#      - optional:nacos:nacos-config-client-dev.yaml  #关键点 导入外部配置源，读取Nacos中的配置
+      - optional:nacos:${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}?refresh=true
+# nacos端配置文件DataId的命名规则是：
+# ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
+# 本案例的DataID是:nacos-config-client-dev.yaml
+logging:
+  level:
+    # 打印 Nacos 远程配置信息
+    com.alibaba.cloud.nacos.configdata.NacosConfigDataLoader: debug

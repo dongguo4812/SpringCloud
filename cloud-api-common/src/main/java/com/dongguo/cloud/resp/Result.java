@@ -23,7 +23,9 @@ public class Result<T> {
     public Result() {
         this.timestamp = System.currentTimeMillis();
     }
-
+    public static <T> Result<T> success() {
+        return success(null);
+    }
     public static <T> Result<T> success(T data) {
         Result<T> result = new Result<>();
         result.setCode(ReturnCodeEnum.RC200.getCode());
