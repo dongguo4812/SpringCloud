@@ -1,5 +1,6 @@
 package com.dongguo.cloud.controller;
 
+import com.dongguo.cloud.feign.PayFeignSentinelApi;
 import com.dongguo.cloud.resp.Result;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,5 +21,13 @@ public class OrderNacosController {
     public Result paymentInfo(@PathVariable("id") Integer id) {
         String url = serverURL + "/pay/nacos/" + id;
         return webClientBuilder.build().get().uri(url).retrieve().bodyToMono(Result.class).block();
+    }
+
+    @Resource
+    private PayFeignSentinelApi payFeignSentinelApi;
+
+    @GetMapping(value = "/consumer/pay/nacos/get/{orderNo}")
+    public Result getPayByOrderNo(@PathVariable("orderNo") String orderNo) {
+        return payFeignSentinelApi.getPayByOrderNo(orderNo);
     }
 }
