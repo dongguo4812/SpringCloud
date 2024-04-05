@@ -19,6 +19,8 @@
         <module>cloud-alibaba-config-client3377</module>
         <module>cloud-alibaba-sentinel-service8401</module>
         <module>cloud-alibaba-provider-payment9001</module>
+        <module>cloud-alibaba-sentinel-gateway9099</module>
+        <module>seata-order-service2001</module>
     </modules>
 
 
