@@ -1,6 +1,7 @@
 package com.dongguo.cloud.exception;
 
 
+import com.alibaba.csp.sentinel.Tracer;
 import com.dongguo.cloud.resp.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,8 @@ public class GlobalExceptionHandler {
     public Result<String> exception(Exception e) {
         System.out.println("----come in GlobalExceptionHandler");
         log.error("全局异常信息exception:{}", e.getMessage(), e);
+        // 记录异常信息到Sentinel中
+        Tracer.trace(e);
         return Result.fail(RC500.getCode(), e.getMessage());
     }
 }
