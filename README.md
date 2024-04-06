@@ -13,6 +13,9 @@ Maven: 3.9+
 Mysql: 8.0+
 
 # 相关组件
+
+![image-20240406110721255](https://gitee.com/dongguo4812_admin/image/raw/master/image/202404061107556.png)
+
 服务注册于发现：Consul 、Alibaba Nacos
 
 服务调用和负载均衡： openFeign、 LoadBalancer
@@ -26,5 +29,10 @@ Mysql: 8.0+
 服务网关： Gateway
 
 分布式配置管理： Consul、Alibaba Nacos
-![image-20240406110721255](https://gitee.com/dongguo4812_admin/image/raw/master/image/202404061107556.png)
+
+![image-20240406110947370](https://gitee.com/dongguo4812_admin/image/raw/master/image/202404061110354.png)
+
+
+
+
 
