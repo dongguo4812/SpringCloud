@@ -14,6 +14,7 @@ public class OrderService2001Application {
 
     public static void main(String[] args) {
         SpringApplication.run(OrderService2001Application.class, args);
+        System.out.println("http://127.0.0.1:2001/swagger-ui.html");
     }
 
 }
