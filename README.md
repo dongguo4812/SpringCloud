@@ -26,4 +26,5 @@ Mysql: 8.0+
 服务网关： Gateway
 
 分布式配置管理： Consul、Alibaba Nacos
-![img.png](img.png)
+![image-20240406110721255](https://gitee.com/dongguo4812_admin/image/raw/master/image/202404061107556.png)
+
